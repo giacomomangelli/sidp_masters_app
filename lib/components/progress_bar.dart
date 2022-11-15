@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sidp_masters/constants/constants.dart';
 
 class ProgressIndicator extends StatefulWidget {
   const ProgressIndicator({super.key});
@@ -18,7 +19,7 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
       /// [AnimationController]s can be created with `vsync: this` because of
       /// [TickerProviderStateMixin].
       vsync: this,
-      duration: const Duration(seconds: 5),
+      duration: Duration(seconds: ScreenDelays.screenDelay.value),
     )..addListener(() {
       setState(() {});
     });
@@ -34,23 +35,30 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            const Text(
-              'Linear progress indicator with a fixed color',
-              style: TextStyle(fontSize: 20),
-            ),
-            LinearProgressIndicator(
-              value: controller.value,
-              semanticsLabel: 'Linear progress indicator',
-            ),
-          ],
-        ),
-      ),
+    return SizedBox(
+      height: (MediaQuery.of(context).size.width)/100 * 5,
+      width: (MediaQuery.of(context).size.width)/100 * 99,
+      child:
+      // Padding(
+        // padding: const EdgeInsets.all(20.0),
+          LinearProgressIndicator(
+          value: controller.value,
+          semanticsLabel: 'Linear progress indicator',
+        )
+        // Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          // children: <Widget>[
+            // const Text(
+            //   'Linear progress indicator with a fixed color',
+            //   style: TextStyle(fontSize: 20),
+            // ),
+            // LinearProgressIndicator(
+            //   value: controller.value,
+            //   semanticsLabel: 'Linear progress indicator',
+            // ),
+          // ],
+        // ),
+      // ),
     );
   }
 }
