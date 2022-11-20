@@ -101,7 +101,6 @@ class _LayoutDisplayerState extends State<LayoutDisplayer> {
               priority: 2,
               title: 'Files',
               onTap: () {
-                Global.controller.page;
                 jumpToPage(2);
               },
               icon: const Icon(Icons.file_copy_rounded),
