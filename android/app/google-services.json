@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "953865748885",
+    "project_id": "sidipmastersapp",
+    "storage_bucket": "sidipmastersapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953865748885:android:a1dd9506f13dc74cda769c",
+        "android_client_info": {
+          "package_name": "it.sidp.sidp_masters"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953865748885-idi929910vt5pbfl7pqn046uj37g4ckh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "it.sidp.sidp_masters",
+            "certificate_hash": "fe5b42ff9a0a0624dc630f14d076e8be5108f865"
+          }
+        },
+        {
+          "client_id": "953865748885-l9mion0s8rrt50qd19g64qv2f1l367pf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9ElI6GeL02A1hdLwhwlIuOHVIIljGXQQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "953865748885-l9mion0s8rrt50qd19g64qv2f1l367pf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

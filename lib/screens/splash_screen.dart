@@ -37,31 +37,6 @@ class _SplashScreenState extends State<SplashScreen> {
     // }
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //       body: Column(children: <Widget>[
-  //     Expanded(
-  //       child: Row(
-  //           //ROW 1
-  //           children: [
-  //             Expanded(
-  //                 child: Container(
-  //                     decoration: const BoxDecoration(
-  //                       color: Colors.black,
-  //                       image: DecorationImage(
-  //                           image: AssetImage('images/sidp_logo_splash.png'),
-  //                           fit: BoxFit.cover),
-  //                     ),
-  //                     constraints: const BoxConstraints.expand()))
-  //           ]),
-  //     ),
-  //     Expanded(child: Row(
-  //         //ROW 2
-  //         children: const [Expanded(child: progress.ProgressIndicator())]))
-  //   ]));
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Stack(
