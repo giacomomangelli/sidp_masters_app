@@ -147,9 +147,7 @@ class HomePageState extends State<HomePage> {
           Flexible(
               flex: 2,
               child: ListView(
-                  padding: const EdgeInsets.all(8),
                   children: const <Widget>[
-                    Spacer(),
                     SubjectCard(),
                     SubjectCard(),
                     SubjectCard(),
@@ -162,7 +160,6 @@ class HomePageState extends State<HomePage> {
                     SubjectCard(),
                     SubjectCard(),
                     SubjectCard(),
-                    Spacer()
                   ]))
         ]));
     //             Container(
