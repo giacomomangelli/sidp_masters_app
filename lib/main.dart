@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sidp_masters/screens/home_page_screen.dart';
+import 'package:sidp_masters/screens/login_screen.dart';
 import 'package:sidp_masters/screens/splash_screen.dart';
 
 void main() {
@@ -9,7 +10,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       home: const SplashScreen(),
       routes: <String, WidgetBuilder>{
         '/splash': (BuildContext context) => const SplashScreen(),
+        '/login': (BuildContext context) => const LoginScreen(),
         '/home': (BuildContext context) => const HomePage(title: 'SIDP Login'),
         '/home/firstScreen': (BuildContext context) => const HomePage(title: 'SIDP Login'),
         '/home/SecondScreen': (BuildContext context) => const HomePage(title: 'SIDP Login')

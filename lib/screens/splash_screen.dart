@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Duration(seconds: ScreenDelays.screenDelay.value),
     );
 
-    Navigator.pushNamed(context, '/home');
+    Navigator.pushNamed(context, '/login');
 
     // if (skipLogin) {
     //   Navigator.pushNamed(context, '/home');
