@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart' as sign_in;
+import 'package:googleapis/drive/v3.dart' as drive;
 import 'package:sidp_masters/screens/home_page_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -9,6 +12,15 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  Future<void> _connectGoogle() async {
+    final googleSignIn =
+        sign_in.GoogleSignIn.standard(scopes: [drive.DriveApi.driveScope]);
+    final sign_in.GoogleSignInAccount? account = await googleSignIn.signIn();
+    if (kDebugMode) {
+      print("User account $account");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,17 +35,13 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 60.0),
               child: Center(
-                child: Container(
+                child: SizedBox(
                     width: 200,
                     height: 150,
-                    /*decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(50.0)),*/
                     child: Image.asset('images/sidp_logo_splash.png')),
               ),
             ),
             const Padding(
-              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 decoration: InputDecoration(
@@ -43,8 +51,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             const Padding(
-              padding: EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15, bottom: 0),
+              padding:
+                  EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 obscureText: true,
@@ -70,8 +78,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Colors.blue, borderRadius: BorderRadius.circular(20)),
               child: TextButton(
                 onPressed: () {
+                  _connectGoogle();
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => const HomePage(title: 'Home page',)));
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const HomePage(
+                                title: 'Home page',
+                              )));
                 },
                 child: const Text(
                   'Login',

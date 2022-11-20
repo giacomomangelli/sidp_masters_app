@@ -21,6 +21,7 @@ class HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: Text(widget.title),
           centerTitle: true,
+          automaticallyImplyLeading: false,
         ),
         body: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Flexible(
