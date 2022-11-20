@@ -1,39 +1,162 @@
-import 'package:flutter/cupertino.dart';
+import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sidp_masters/components/layout_controller.dart';
+import 'package:easy_sidemenu/src/global/global.dart';
+
 
 class LayoutDisplayer extends StatefulWidget {
-  const LayoutDisplayer({
-    Key? key,
-    this.containerChild
-  }) : super(key: key);
+  const LayoutDisplayer(
+      {Key? key, this.initialPageToDisplay = 0, required this.controller})
+      : super(key: key);
 
-  final Widget? containerChild;
+  final int initialPageToDisplay;
+  final LayoutController controller;
 
   @override
   State<LayoutDisplayer> createState() => _LayoutDisplayerState();
 }
 
 class _LayoutDisplayerState extends State<LayoutDisplayer> {
-
-  Widget _container = Container();
+  late Widget _page;
+  PageController pageController = PageController();
 
   @override
   void initState() {
-    _container = Container(
-        child: widget.containerChild
-    );
+    _page = widget.controller.getPage(widget.initialPageToDisplay);
     super.initState();
   }
 
-  void setLayout(Widget container){
+  void jumpToPage(int pageToDisplay) {
     setState(() {
-      _container = container;
+      _page = widget.controller.getPage(pageToDisplay);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return _container;
+    return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+      Flexible(
+        flex: 1,
+        child: SideMenu(
+          controller: pageController,
+          style: SideMenuStyle(
+            // showTooltip: false,
+            displayMode: SideMenuDisplayMode.auto,
+            hoverColor: Colors.blue[100],
+            selectedColor: Colors.lightBlue,
+            selectedTitleTextStyle: const TextStyle(color: Colors.white),
+            selectedIconColor: Colors.white,
+            // decoration: BoxDecoration(
+            //   borderRadius: BorderRadius.all(Radius.circular(10)),
+            // ),
+            // backgroundColor: Colors.blueGrey[700]
+          ),
+          title: Column(
+            children: [
+              ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxHeight: 150,
+                  maxWidth: 150,
+                ),
+                child: Image.asset(
+                  'images/sidp_logo_splash.png',
+                ),
+              ),
+              const Divider(
+                indent: 8.0,
+                endIndent: 8.0,
+              ),
+            ],
+          ),
+          footer: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'mohada',
+              style: TextStyle(fontSize: 15),
+            ),
+          ),
+          items: [
+            SideMenuItem(
+              priority: 0,
+              title: 'Dashboard',
+              onTap: () {
+                jumpToPage(0);
+              },
+              icon: const Icon(Icons.home),
+              badgeContent: const Text(
+                '3',
+                style: TextStyle(color: Colors.white),
+              ),
+              tooltipContent: "This is a tooltip for Dashboard item",
+            ),
+            SideMenuItem(
+              priority: 1,
+              title: 'Users',
+              onTap: () {
+                jumpToPage(1);
+              },
+              icon: const Icon(Icons.supervisor_account),
+            ),
+            SideMenuItem(
+              priority: 2,
+              title: 'Files',
+              onTap: () {
+                Global.controller.page;
+                jumpToPage(2);
+              },
+              icon: const Icon(Icons.file_copy_rounded),
+              trailing: Container(
+                  decoration: const BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.all(Radius.circular(6))),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 6.0, vertical: 3),
+                    child: Text(
+                      'New',
+                      style: TextStyle(fontSize: 11, color: Colors.grey[800]),
+                    ),
+                  )),
+            ),
+            SideMenuItem(
+              priority: 3,
+              title: 'Download',
+              onTap: () {
+                jumpToPage(3);
+              },
+              icon: const Icon(Icons.download),
+            ),
+            SideMenuItem(
+              priority: 4,
+              title: 'Settings',
+              onTap: () {
+                jumpToPage(4);
+              },
+              icon: const Icon(Icons.settings),
+            ),
+            // SideMenuItem(
+            //   priority: 5,
+            //   onTap: () {
+            //     page.jumpToPage(5);
+            //   },
+            //   icon: const Icon(Icons.image_rounded),
+            // ),
+            // SideMenuItem(
+            //   priority: 6,
+            //   title: 'Only Title',
+            //   onTap: () {
+            //     page.jumpToPage(6);
+            //   },
+            // ),
+            const SideMenuItem(
+              priority: 7,
+              title: 'Exit',
+              icon: Icon(Icons.exit_to_app),
+            ),
+          ],
+        ),
+      ),
+      Flexible(flex: 2, child: _page)
+    ]);
   }
 }
