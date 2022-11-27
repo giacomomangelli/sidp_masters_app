@@ -22,10 +22,11 @@ class MyApp extends StatelessWidget {
         '/splash': (BuildContext context) => const SplashScreen(),
         '/login': (BuildContext context) => const LoginScreen(),
         '/home': (BuildContext context) => const HomePage(title: 'SIDP Login'),
-        '/home/firstScreen': (BuildContext context) => const HomePage(title: 'SIDP Login'),
-        '/home/SecondScreen': (BuildContext context) => const HomePage(title: 'SIDP Login')
+        '/home/firstScreen': (BuildContext context) =>
+            const HomePage(title: 'SIDP Login'),
+        '/home/SecondScreen': (BuildContext context) =>
+            const HomePage(title: 'SIDP Login')
       },
     );
   }
 }
-

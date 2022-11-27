@@ -1,8 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart' as sign_in;
-import 'package:googleapis/drive/v3.dart' as drive;
+import 'package:googleapis/drive/v3.dart';
 import 'package:sidp_masters/screens/home_page_screen.dart';
+
+final googleSignIn =
+    sign_in.GoogleSignIn.standard(scopes: [DriveApi.driveReadonlyScope]);
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,13 +16,43 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  late Function(DriveApi driveApi) query;
+
+  DriveApi? get driveApi => null;
+
   Future<void> _connectGoogle() async {
     final googleSignIn =
-        sign_in.GoogleSignIn.standard(scopes: [drive.DriveApi.driveScope]);
+        sign_in.GoogleSignIn.standard(scopes: [DriveApi.driveScope]);
     final sign_in.GoogleSignInAccount? account = await googleSignIn.signIn();
+    // final fileList = await query(driveApi!);
+    // final files = fileList.files;
+    String message;
+    // if (files == null) {
+    //   message = 'Dati non trovati!';
+    //   return showDialog(
+    //       context: context,
+    //       builder: (BuildContext context) => AlertDialog(
+    //             title: const Text('AlertDialog'),
+    //             content: Text(message),
+    //             actions: <Widget>[
+    //               TextButton(
+    //                 onPressed: () => Navigator.pop(context, 'Cancel'),
+    //                 child: const Text('Cancel'),
+    //               ),
+    //               TextButton(
+    //                 onPressed: () => Navigator.pop(context, 'OK'),
+    //                 child: const Text('OK'),
+    //               ),
+    //             ],
+    //           ));
+    // }
     if (kDebugMode) {
       print("User account $account");
     }
+  }
+
+  Future<FileList> _allFileList(DriveApi driveApi) {
+    return driveApi.files.list(spaces: 'drive');
   }
 
   @override
@@ -47,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Email',
-                    hintText: 'Enter valid email id as abc@gmail.com'),
+                    hintText: 'Enter valid email for sidp account'),
               ),
             ),
             const Padding(
@@ -59,19 +93,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Password',
-                    hintText: 'Enter secure password'),
+                    hintText: 'Enter your password'),
               ),
             ),
-            TextButton(
-              onPressed: () {
-                //TODO FORGOT PASSWORD SCREEN GOES HERE
-              },
-              child: const Text(
-                'Forgot Password',
-                style: TextStyle(color: Colors.blue, fontSize: 15),
-              ),
-            ),
+            // TextButton(
+            //   onPressed: () {
+            //     //TODO FORGOT PASSWORD SCREEN GOES HERE
+            //   },
+            //   child: const Text(
+            //     'Forgot Password',
+            //     style: TextStyle(color: Colors.blue, fontSize: 15),
+            //   ),
+            // ),
             Container(
+              margin: const EdgeInsets.all(10),
               height: 50,
               width: 250,
               decoration: BoxDecoration(
@@ -92,10 +127,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
+            SignInButton(
+              Buttons.Google,
+              text: "Sign in with Google",
+              onPressed: () {
+                _connectGoogle();
+              },
+            ),
             const SizedBox(
               height: 130,
             ),
-            const Text('New User? Create Account')
+            const Text('New User? Ask for your account!')
           ],
         ),
       ),
