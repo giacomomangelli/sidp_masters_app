@@ -2,11 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart' as sign_in;
-import 'package:googleapis/drive/v3.dart';
+import 'package:googleapis/drive/v3.dart' as ga;
 import 'package:sidp_masters/screens/home_page_screen.dart';
 
 final googleSignIn =
-    sign_in.GoogleSignIn.standard(scopes: [DriveApi.driveReadonlyScope]);
+    sign_in.GoogleSignIn.standard(scopes: [ga.DriveApi.driveReadonlyScope]);
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
