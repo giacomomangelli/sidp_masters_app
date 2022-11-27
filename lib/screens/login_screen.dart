@@ -5,9 +5,6 @@ import 'package:google_sign_in/google_sign_in.dart' as sign_in;
 import 'package:googleapis/drive/v3.dart';
 import 'package:sidp_masters/screens/home_page_screen.dart';
 
-final googleSignIn =
-    sign_in.GoogleSignIn.standard(scopes: [DriveApi.driveReadonlyScope]);
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -16,43 +13,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late Function(DriveApi driveApi) query;
-
-  DriveApi? get driveApi => null;
-
   Future<void> _connectGoogle() async {
     final googleSignIn =
         sign_in.GoogleSignIn.standard(scopes: [DriveApi.driveScope]);
     final sign_in.GoogleSignInAccount? account = await googleSignIn.signIn();
-    // final fileList = await query(driveApi!);
-    // final files = fileList.files;
-    String message;
-    // if (files == null) {
-    //   message = 'Dati non trovati!';
-    //   return showDialog(
-    //       context: context,
-    //       builder: (BuildContext context) => AlertDialog(
-    //             title: const Text('AlertDialog'),
-    //             content: Text(message),
-    //             actions: <Widget>[
-    //               TextButton(
-    //                 onPressed: () => Navigator.pop(context, 'Cancel'),
-    //                 child: const Text('Cancel'),
-    //               ),
-    //               TextButton(
-    //                 onPressed: () => Navigator.pop(context, 'OK'),
-    //                 child: const Text('OK'),
-    //               ),
-    //             ],
-    //           ));
-    // }
     if (kDebugMode) {
       print("User account $account");
     }
-  }
-
-  Future<FileList> _allFileList(DriveApi driveApi) {
-    return driveApi.files.list(spaces: 'drive');
   }
 
   @override
