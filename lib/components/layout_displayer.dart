@@ -1,7 +1,6 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:sidp_masters/components/layout_controller.dart';
-import 'package:easy_sidemenu/src/global/global.dart';
 
 
 class LayoutDisplayer extends StatefulWidget {
@@ -17,18 +16,17 @@ class LayoutDisplayer extends StatefulWidget {
 }
 
 class _LayoutDisplayerState extends State<LayoutDisplayer> {
-  late Widget _page;
-  PageController pageController = PageController();
+  late PageController _pageController;
 
   @override
   void initState() {
-    _page = widget.controller.getPage(widget.initialPageToDisplay);
+    _pageController = widget.controller.getPageController();
     super.initState();
   }
 
   void jumpToPage(int pageToDisplay) {
     setState(() {
-      _page = widget.controller.getPage(pageToDisplay);
+      widget.controller.jumpToPage(pageToDisplay);
     });
   }
 
@@ -38,7 +36,7 @@ class _LayoutDisplayerState extends State<LayoutDisplayer> {
       Flexible(
         flex: 1,
         child: SideMenu(
-          controller: pageController,
+          controller: _pageController,
           style: SideMenuStyle(
             // showTooltip: false,
             displayMode: SideMenuDisplayMode.auto,
@@ -133,20 +131,6 @@ class _LayoutDisplayerState extends State<LayoutDisplayer> {
               },
               icon: const Icon(Icons.settings),
             ),
-            // SideMenuItem(
-            //   priority: 5,
-            //   onTap: () {
-            //     page.jumpToPage(5);
-            //   },
-            //   icon: const Icon(Icons.image_rounded),
-            // ),
-            // SideMenuItem(
-            //   priority: 6,
-            //   title: 'Only Title',
-            //   onTap: () {
-            //     page.jumpToPage(6);
-            //   },
-            // ),
             const SideMenuItem(
               priority: 7,
               title: 'Exit',
@@ -155,7 +139,7 @@ class _LayoutDisplayerState extends State<LayoutDisplayer> {
           ],
         ),
       ),
-      Flexible(flex: 2, child: _page)
+      Flexible(flex: 2,child: widget.controller.initPageView())
     ]);
   }
 }
