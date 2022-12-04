@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart' as sign_in;
 import 'package:googleapis/drive/v3.dart';
+import 'package:sidp_masters/constants/secure_storage.dart';
 import 'package:sidp_masters/screens/home_page_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,8 +18,15 @@ class _LoginScreenState extends State<LoginScreen> {
     final googleSignIn =
         sign_in.GoogleSignIn.standard(scopes: [DriveApi.driveScope]);
     final sign_in.GoogleSignInAccount? account = await googleSignIn.signIn();
+    SecureStorage secureStorage = SecureStorage();
+    secureStorage.saveGDCredentials(await account!.authHeaders);
     if (kDebugMode) {
       print("User account $account");
+      Map<String, String> headers = await account.authHeaders;
+      for (String header in headers.keys) {
+        print(header);
+        print(headers[header]);
+      }
     }
   }
 
@@ -80,7 +88,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Colors.blue, borderRadius: BorderRadius.circular(20)),
               child: TextButton(
                 onPressed: () {
-                  _connectGoogle();
                   Navigator.push(
                       context,
                       MaterialPageRoute(
