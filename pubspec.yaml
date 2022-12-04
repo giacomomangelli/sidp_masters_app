@@ -50,6 +50,10 @@ dependencies:
   file_picker: 5.2.2
   #graphic utils
   flutter_signin_button: 2.0.0
+  #http client
+  http: ^0.13.5
+
+
 
 dev_dependencies:
   flutter_test:
